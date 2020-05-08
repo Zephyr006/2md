@@ -2,25 +2,27 @@
 
 [![Markdown Improve](https://img.shields.io/badge/markdown--improve-Phodal-blue.svg)](https://github.com/phodal/markdown-improve)
 
-markdown to Wechat Public（微信公众号）: [MDPub](https://github.com/phodal/mdpub)
+微信公众号文章保存神器（保存PDF文件可使用快捷键 **`Ctrl+P`**）
 
-Features：直接复制、粘贴到编程器里。
+Features：
+- 直接复制、粘贴到编辑器里。
+- 一键保存为markdown文件
+- 一键保存为html文件
 
 Screenshots:
 
-![2md Screenshots](./marketing/2md.jpg) 
+![2md Screenshots](./imgs/2md.jpg) 
 
 Base on：
-
  * TinyMce
  * to-markdown.js
  * clipboard
 
 Inspired by [to-markdown](https://github.com/domchristie/to-markdown) - A Convert from html to markdown
 
+
 LICENSE
 ---
-
 
 [![Phodal's Idea](http://brand.phodal.com/shields/idea-small.svg)](http://ideas.phodal.com/)
 

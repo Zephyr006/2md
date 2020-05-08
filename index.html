@@ -5,9 +5,12 @@
     <title> 2md: A Converter for Copy/Paste content to Markdown</title>
     <link rel="stylesheet" href="styles.css">
 
-    <script src="tinymce/tinymce.min.js"></script>
-    <script src="js/clipboard.min.js"></script>
-    <script src="js/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/tinymce/4.9.6/tinymce.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.2.1/jquery.slim.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/1.6.1/clipboard.min.js"></script>
+    <!--    <script src="tinymce/tinymce.min.js"></script>-->
+    <!--    <script src="js/jquery-3.2.1.slim.min.js"></script>-->
+<!--    <script src="js/clipboard.min.js"></script>-->
     <script src="js/to-markdown.js"></script>
 </head>
 <body>
@@ -15,15 +18,17 @@
 <div class="row cf">
     <div class="col">
         <div class="header">
-            <h2><a href="https://github.com/phodal/2md">2MD</a></h2>
+            <h2><a href="https://github.com/phodal/2md">2MD: Copy, Paste, Markdown get!</a></h2>
         </div>
         <textarea id="input"></textarea>
     </div>
     <div class="col">
         <div class="header">
             <button class="btn button" data-clipboard-action="copy" data-clipboard-target="#output">复制</button>
+            &nbsp;<button class="btn button" onclick="toMdFile()">导出markdown文件</button>
+            &nbsp;<button class="btn button" onclick="toHtmlFile()">导出html文件</button>
         </div>
-        <textarea id="output" rows="25" cols="50"> hello, world</textarea>
+        <textarea id="output" style="height: 633px" rows="25" cols="50"></textarea>
     </div>
 </div>
 </body>
@@ -31,7 +36,7 @@
 <script>
   tinymce.init({
     selector: 'textarea#input',
-    height: 500,
+    height: "600",
     menubar: false,
     statusbar: false,
     toolbar: ['code'],
@@ -71,6 +76,47 @@
   $('document').ready(function () {
     new Clipboard('.btn');
   });
+
+
+  function toMdFile() {
+    const text = document.getElementById('output').value;
+    if ("" === text) {
+        alert("请先在左侧添加内容！");  return;
+    }
+    download(text, "new.md");
+  }
+
+  function toHtmlFile() {
+    if ("" === document.getElementById('output').value) {
+        alert("请先在左侧添加内容！");  return;
+    }
+    const mceu_source = document.getElementById("mceu_0-button");
+    mceu_source.click();
+
+    const textarea = $(".mce-reset[role='application'] textarea");
+    const mceu_btns = $(".mce-reset[role='application'] button");
+    const htmlContext = textarea.val();
+    mceu_btns[0].click();
+    download(htmlContext, "new.html");
+  }
+
+
+    // 下载文本内容到本地文件
+    function download(context, filename) {
+        const blob = new Blob([context], {type: "text/plain; charset=utf-8"});
+        blob.lastModifiedDate = new Date();
+
+        // 创建隐藏的可下载链接
+        const downloadLink = document.createElement('a');
+        downloadLink.download = filename;
+        downloadLink.style.display = 'none';
+        // 字符内容转变成blob地址
+        downloadLink.href = URL.createObjectURL(blob);
+        // 触发点击并移除 a 元素
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+    }
 
 </script>
 </html>
